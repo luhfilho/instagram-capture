@@ -8,15 +8,21 @@ async function main() {
         console.log('username argument is required');
         return;
     }
+
+    if (!'days' in argv) {
+        console.log('days argument is required');
+        return;
+    }
     let username = argv['username'];
-    await do_capture(username);
+    let days = argv['days'];
+    await do_capture(username, days);
 }
 
 
-async function do_capture(username) {
+async function do_capture(username, days) {
+    days =parseInt(days);
     console.log('Starting getting new user job');
     console.log('Starting job with https://instagram.com/' + username);
-
     console.log('Getting user env data');
     let user_item = await userCapture.getEnv(username);
 
@@ -36,10 +42,11 @@ async function do_capture(username) {
 
 
     console.log('Getting user posts data');
+    console.log(days, ' day(s)');
 
     let date = new Date();
     date.setHours(0, 0, 0, 0);
-    date.setDate(date.getDate() - 3);
+    date.setDate(date.getDate() - days);
     console.log('capture until => ', date);
 
     let posts = await userCapture.getPosts(username, user_item.response, date);

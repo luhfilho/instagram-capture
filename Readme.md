@@ -7,5 +7,5 @@ npm install
 
 ## Rodando projeto
 ```
-node capture.js --username cristiano
+node capture.js --username cristiano --days 5
 ```
